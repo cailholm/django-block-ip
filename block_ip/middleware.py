@@ -11,6 +11,7 @@ def get_ip(req):
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = req.META.get('REMOTE_ADDR')
+    print(req.META)
     return ip
 
 
