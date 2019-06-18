@@ -6,7 +6,12 @@ from .models import BlockIP
 
 
 def get_ip(req):
-    return req.META['REMOTE_ADDR']
+    x_forwarded_for = req.META.get('X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = req.META.get('REMOTE_ADDR')
+    return ip
 
 
 def is_ip_in_nets(ip, nets):
